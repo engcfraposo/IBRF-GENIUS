@@ -37,13 +37,16 @@ function nextSequence(){
     }, 500)
 }
 
-function flashButton(color){
-    let button = document.querySelector('.' + color)
-    button.style.opacity = '0.5';
-    setTimeout(function() {
-        button.style.opacity = '1'
-    }, 400)
-}
+function flashButton(color) {
+    let button = document.querySelector("." + color);
+    if (button !== null) { // adicionando a verificação
+      button.style.opacity = "0.5";
+      setTimeout(function() {
+        button.style.opacity = "1";
+      }, 500);
+    }
+  }
+  
 
 document
     .querySelectorAll('.button')
@@ -62,7 +65,21 @@ document
 })
 
 function checkAnswer(){
-    return false;
+    let lastIndex = userPattern.length -1;
+    if(
+        gamePattern[lastIndex] !== userPattern[lastIndex]
+    ){
+        return false;
+    }
+    
+    if(userPattern.length === gamePattern.length){
+        setTimeout(function() {
+            nextSequence()
+        }, 1000);
+    } else {
+        turn = 1;
+    }
+    return true
 }
 
 function gameOver() {
